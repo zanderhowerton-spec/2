@@ -73,11 +73,15 @@ final class PersonalityManager {
         File f = new File(plugin.getDataFolder(), "personalities.yml");
         if (f.exists()) {
             YamlConfiguration y = YamlConfiguration.loadConfiguration(f);
-            for (String k : y.getKeys(false)) {
-                ConfigurationSection sec = y.getConfigurationSection(k);
-                if (sec != null && !builtin.contains(k.toLowerCase(Locale.ROOT)))
-                    map.put(k.toLowerCase(Locale.ROOT), Personality.read(k.toLowerCase(Locale.ROOT), sec));
-            }
+       for (String personalityKey : y.getKeys(false)) {
+    ConfigurationSection sec = y.getConfigurationSection(personalityKey);
+    if (sec != null && !builtin.contains(personalityKey.toLowerCase(Locale.ROOT))) {
+        map.put(
+            personalityKey.toLowerCase(Locale.ROOT),
+            Personality.read(personalityKey.toLowerCase(Locale.ROOT), sec)
+        );
+    }
+}
         }
     }
 
